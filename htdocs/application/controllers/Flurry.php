@@ -38,8 +38,6 @@ class Flurry extends CI_Controller {
       $data['id'] = $client->get_id();
       $data['msec_taken'] = round(((microtime(TRUE) - $timer_start)*1000),3);
       $data['workerid'] = $client->get_worker_id();
-      
-      print_r($data);
 
       $transport->close();
 
