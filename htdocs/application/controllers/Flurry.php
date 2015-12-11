@@ -9,6 +9,7 @@ class Flurry extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
+
     $gen_dir = realpath(dirname(__FILE__));
 
     $this->loader = new \Thrift\ClassLoader\ThriftClassLoader();

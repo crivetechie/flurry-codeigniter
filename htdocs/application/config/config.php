@@ -512,6 +512,14 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+
+//application specific config
+require "/etc/flurry-ci/flurry-ci.php";
+$config = array_merge($config, $setting);
+
+
+
+//Autoload libraries, skipping Bazu namespace as some files have multiple classes defined
 spl_autoload_extensions('.php'); // Only Autoload PHP Files
 spl_autoload_register(function($classname) {
 
