@@ -32,9 +32,14 @@ class Flurry extends CI_Controller {
 
       $transport->open();
 
-      $result = $client->get_id();
+      $timer_start = microtime(TRUE);
+      $id = $client->get_id();
+      $usec_taken = ((microtime(TRUE) - $timer_start)*1000);
+      $workerid = $client->get_worker_id();
       print "flurry server: $flurryhost:$flurryport<br>";
-      print "id: $result";
+      print "workerid: $workerid<br>";
+      print "id: $id<br>";
+      print "took $usec_taken usecs";
 
       $transport->close();
 
