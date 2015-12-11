@@ -33,15 +33,17 @@ class Flurry extends CI_Controller {
       $transport->open();
 
       $timer_start = microtime(TRUE);
-      $id = $client->get_id();
-      $msec_taken = round(((microtime(TRUE) - $timer_start)*1000),3);
-      $workerid = $client->get_worker_id();
-      print "flurry server: $flurryhost:$flurryport<br>";
-      print "workerid: $workerid<br>";
-      print "id: $id<br>";
-      print "took $msec_taken msecs";
+      $data['host'] = $flurryhost;
+      $data['port'] = $flurryport;
+      $data['id'] = $client->get_id();
+      $data['msec_taken'] = round(((microtime(TRUE) - $timer_start)*1000),3);
+      $data['workerid'] = $client->get_worker_id();
+      
+      print_r($data);
 
       $transport->close();
+
+      $this->load->view('flurry', $data);
 
     } catch (TException $tx) {
       print 'TException: '.$tx->getMessage()."\n";
