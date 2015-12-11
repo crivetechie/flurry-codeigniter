@@ -21,8 +21,11 @@ class Flurry extends CI_Controller {
   }
 
   public function index() {
+    $flurryhost = $this->config->item('flurry_server')["host"];
+    $flurryport = $this->config->item('flurry_server')["port"];
+
     try {
-      $socket = new \Thrift\Transport\TSocket('localhost', 9090);
+      $socket = new \Thrift\Transport\TSocket($flurryhost, $flurryport);
       $transport = new \Thrift\Transport\TBufferedTransport($socket, 1024, 1024);
       $protocol = new \Thrift\Protocol\TBinaryProtocol($transport);
       $client = new \Bazu\Flurry\FlurryClient($protocol);
@@ -30,7 +33,8 @@ class Flurry extends CI_Controller {
       $transport->open();
 
       $result = $client->get_id();
-      print "$result";
+      print "flurry server: $flurryhost:$flurryport<br>";
+      print "id: $result";
 
       $transport->close();
 
